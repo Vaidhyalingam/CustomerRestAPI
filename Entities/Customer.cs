@@ -7,4 +7,6 @@ namespace ProductCatalog.Entities
         public string City { get; init; }
         public string PhoneNumber { get; init; }
     }
-}
+q}
+
+Hi from Office Laptop
