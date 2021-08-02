@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
+using ProductCatalog.Dtos;
 using ProductCatalog.Entities;
 using ProductCatalog.Repository;
 
@@ -17,18 +19,34 @@ namespace ProductCatalog.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Customer> GetCustomers()
+        public IEnumerable<CustomerDto> GetCustomers()
         {
-            var customers = repository.GetCustomers();
+            var customers = repository.GetCustomers().Select(customer => customer.AsDto());            
             return customers;
         }
 
         [HttpGet("{id}")]
-        public Customer GetCustomer(int id)
+        public CustomerDto GetCustomer(int id)
         {
            var customer = repository.GetCustomer(id);
-           return customer;
+           return customer.AsDto();
         }
 
+        [HttpPost]
+        public CustomerDto CreateCustomer(CustomerDto customerDto)
+        {
+            Customer customer = new()
+            {
+                Id = customerDto.Id,
+                Name = customerDto.Name,
+                City = customerDto.City,
+                PhoneNumber = customerDto.PhoneNumber
+            };
+            
+           repository.CreateCustomer(customer);
+           
+           return customer.AsDto();
+        // return CreatedAtAction(nameof(GetCustomer), new {Id = customer.Id} , customer.AsDto());
+        }        
     }
 }

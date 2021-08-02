@@ -32,5 +32,10 @@ namespace ProductCatalog.Repository
         {
             return customers.Find(customer => customer.Id == id);
         }
+
+        public void CreateCustomer(Customer customer)
+        {
+            customers.Add(customer);
+        }
     }
 }
