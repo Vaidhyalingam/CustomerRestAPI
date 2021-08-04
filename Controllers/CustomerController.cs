@@ -47,6 +47,29 @@ namespace ProductCatalog.Controllers
            
            return customer.AsDto();
         // return CreatedAtAction(nameof(GetCustomer), new {Id = customer.Id} , customer.AsDto());
-        }        
+        }      
+
+        [HttpPut("{id}")]
+        public void UpdateCustomer(int id, CustomerDto customerDto)
+        // public ActionResult UpdateCustomer(int id, CustomerDto customerDto)
+        {
+            var existingCustomer = repository.GetCustomer(id);
+            Customer updatedCustomer = existingCustomer with 
+            {
+                Name = customerDto.Name,
+                City = customerDto.City,
+                PhoneNumber = customerDto.PhoneNumber
+
+            };
+            repository.UpdateCustomer(updatedCustomer);
+        }
+
+        [HttpDelete]
+        public void DeleteCustomer(int id)
+        {
+            var existingCustomer = repository.GetCustomer(id);
+            repository.DeleteCustomer(id);
+        }
+
     }
 }

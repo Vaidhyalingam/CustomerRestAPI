@@ -37,5 +37,17 @@ namespace ProductCatalog.Repository
         {
             customers.Add(customer);
         }
+
+        public void UpdateCustomer(Customer customer)
+        {
+            var index = customers.FindIndex(x => x.Id == customer.Id);
+            customers[index] = customer;
+        }
+
+        public void DeleteCustomer(int id)
+        {
+            var index = customers.FindIndex(x => x.Id == id);
+            customers.RemoveAt(index);
+        }
     }
 }

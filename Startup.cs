@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using ProductCatalog.Repository;
+using MySql.Data.MySqlClient;
 
 namespace ProductCatalog
 {
@@ -27,7 +28,17 @@ namespace ProductCatalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ICustomerRepository, InMemCustomerRepository>();
+            var mySQLDbSettings = Configuration.GetConnectionString("default");
+            //services.AddSingleton<MySQLDBCustomerRepository>(_ => new MySQLDBCustomerRepository("server=localhost; port=3306; database=employeesystem; uid=root; pwd=linga;"));
+            // services.AddSingleton<MySqlConnection>(serviceProvider =>
+            // {
+            //     //return new MySqlConnection(mySQLDbSettings.ConnectionString);
+            // });
+            services.AddSingleton<MySqlConnection>(serviceProvider =>
+            {
+                return new MySqlConnection(mySQLDbSettings);
+            });
+            services.AddSingleton<ICustomerRepository, MySQLDBCustomerRepository>();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {

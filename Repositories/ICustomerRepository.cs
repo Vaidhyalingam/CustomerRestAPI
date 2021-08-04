@@ -8,5 +8,7 @@ namespace ProductCatalog.Repository
         Customer GetCustomer(int id);
         IEnumerable<Customer> GetCustomers();
         void CreateCustomer(Customer customer);
+        void UpdateCustomer(Customer customer);
+        void DeleteCustomer(int id);
     }
 }

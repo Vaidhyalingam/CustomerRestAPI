@@ -1,0 +1,25 @@
+Terminal command to create new dot net web api project:
+-	dotnet new webapi -n %NameOfProject
+
+Terminal command to add certificate trust under Folder level:
+-	dotnet dev-certs https --trust 
+
+Avoid popping up new Window each time project is build/debugged:
+-	Under Launch.json remove following code
+            // Enable launching a web browser when ASP.NET Core starts. For more information: https://aka.ms/VSCode-CS-LaunchJson-WebBrowser
+            "serverReadyAction": {
+                "action": "openExternally",
+                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
+            },
+
+Run build Smoothly:
+-   Under tasks.json under build add following code
+                "group": 
+                {
+                    "kind": "build",
+                    "isDefault": true
+                },
+
+Add SQLServer Client NugetPackage to Project:
+ -  dotnet add package MySql.Data
+
